@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head1">
+</head>
+<body class="bg-danger">
+	<header th:replace="plantilla/template :: header1"></header>
+	<br><br>
+	
+	<div class="container">
+	
+		
+		<h1 class="text-center text-white" th:text="${titulo}"></h1>
+		<br>
+		 <a th:if="${rol != 'Student'}" class="btn btn-primary btn-lg btn-dark"
+			th:href="@{/views/crear}" th:text="'Crear nuevo coche'"
+			title="Crear nuevo coche"></a> <br> <br>
+			
+		
+<form th:action="@{/views/borrar}" th:object="${coche}" method="POST">
+		<table class="table table-dark table-striped table-hover text-center">
+			<thead>
+				<tr>
+					
+					<th scope="col">Marca</th>
+					<th scope="col">Modelo</th>
+					<th scope="col">Precio</th>
+					<th scope="col">Puertas</th>
+					<th scope="col">CV</th>
+					<th scope="col">Kil&oacute;metros</th>
+					<th scope="col"></th>
+					<th scope="col"><input th:if="${rol != 'STUDENT'}" class="btn btn-danger btn-sm" type="submit" value="Eliminar"></th>
+					
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="c: ${coches}">
+					
+					<th scope="row" th:text="${c.marca}"></th>
+					<td th:text="${c.modelo}"></td>
+					<td th:text="${c.precio}"></td>
+					<td th:text="${c.numPuertas}"></td>
+					<td th:text="${c.cv}"></td>
+					<td th:text="${c.km}"></td>
+					<td><a  th:if="${rol == 'Proffesor'}" class="btn btn-success btn-sm"
+						th:href="@{/views/editar/} + ${c.id}" th:text="'Editar'"
+						title="Editar coche"></a></td>
+
+					<td><input type="checkbox" th:name="id"  th:value="${c.id}"></td>
+
+					
+
+				</tr>
+
+
+			</tbody>
+		</table>
+		
+		</form>
+	</div>
+	<br><br>
+	<footer th:replace="plantilla/template :: footer1"></footer>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head1">
+</head>
+<body class="bg-danger">
+	<header th:replace="plantilla/template :: header1"></header>
+	<div class="container">
+		<br><br>
+	
+		<div class="card bg-light">
+			<div class="card-header bg-dark text-white"><p th:text="${titulo}"></p></div>
+			<div class="card-body">
+				<form th:action="@{/views/guardar}" th:object="${coche}" method="post">
+					<div class="mb-3 row">
+						<input type="hidden" th:field="*{id}">
+						<label for="marca" class="form-label col-md-2">Marca </label> <input
+							type="text" th:field="*{marca}" class="form-control form-control-sm col-md-6"
+							id="marca" placeholder="Marca del coche">
+							<small class="form-text text-danger" th:if="${#fields.hasErrors('marca')}"
+							th:errors="*{marca}"></small>
+							
+					</div>
+
+					<div class="mb-3 row">
+						<label for="modelo" class="form-label col-md-2">Modelo </label> <input
+							type="text" th:field="*{modelo}" class="form-control form-control-sm col-md-6"
+							id="modelo" placeholder="Modelo del coche"> <small class="form-text text-danger" th:if="${#fields.hasErrors('modelo')}"
+							th:errors="*{modelo}"></small>
+							
+					</div>
+
+					<div class="mb-3 row">
+						<label for="precio" class="form-label col-md-2">Precio </label> <input
+							type="text" th:field="*{precio}" class="form-control form-control-sm col-md-6"
+							id="precio" placeholder="Precio del coche"> <small class="form-text text-danger" th:if="${#fields.hasErrors('precio')}"
+							th:errors="*{precio}"></small>
+					</div>
+
+					<div class="mb-3 row">
+						<label for="numPuertas" class="form-label col-md-2">Puertas
+						</label> <input type="text" th:field="*{numPuertas}" class="form-control form-control-sm col-md-6"
+							id="numPuertas" placeholder="Puertas del coche"> <small class="form-text text-danger" th:if="${#fields.hasErrors('numPuertas')}"
+							th:errors="*{numPuertas}"></small>
+					</div>
+
+					<div class="mb-3 row">
+						<label for="cv" class="form-label col-md-2">CV </label> <input
+							type="text" th:field="*{cv}" class="form-control form-control-sm col-md-6" id="cv"
+							placeholder="CV del coche"> <small class="form-text text-danger" th:if="${#fields.hasErrors('cv')}"
+							th:errors="*{cv}"></small>
+					</div>
+
+					<div class="mb-3 row">
+						<label for="km" class="form-label col-md-2">Kil&oacute;metros
+						</label> <input type="text" th:field="*{km}" class="form-control form-control-sm col-md-6"
+							id="km" placeholder="Kil&oacute;metros del coche"> <small class="form-text text-danger" th:if="${#fields.hasErrors('marca')}"
+							th:errors="*{km}"></small>
+					</div>
+					<div class="card-footer bg-dark">
+					<input th:if="${rol != 'Student'}" type="submit" class="btn  btn-sm bg-light  text-black" value="Guardar">
+					</div>
+					
+				</form>
+			</div>
+		</div>
+	</div>
+	<br><br>
+	<footer th:replace="plantilla/template :: footer1"></footer>
+</body>
+</html>

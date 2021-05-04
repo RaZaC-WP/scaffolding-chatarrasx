@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <title th:text="#{tool_title}">LTI Hello world tool</title>
-  <div th:insert="fragments/head :: head"></div>
-  <body>
-    <div class="loading-spinner">
-      <div class="spinner-grow" role="status"></div>
-      <span class="loading-text" th:text="#{loading_tool}"></span>
-    </div>
-    <div id="htmlContainer" style="opacity: 0;"></div>
-    <script>
-      $("#htmlContainer").load(
-        "[[@{/index}]]" + "?" + window.location.search.substr(1),
-        function () {
-          $(".loading-spinner").fadeOut();
-          $("#htmlContainer").fadeTo("slow", 1);
-        }
-      );
-    </script>
-  </body>
+<head th:replace="plantilla/template :: head1">
+</head>
+<body class="bg-danger">
+	<header th:replace="plantilla/template :: header1"></header>
+	<div   class="container text-center">
+		<br>
+		
+		<h2>Bienvenido/a <span th:text="${nombre}"> </span> </h2>
+		<br>
+		
+		<img  th:src="@{/images/3.jpg}" class="img-thumbnail " alt="...">
+		<br>
+		<br>
+		<h2>a Cacharros <strong>X</strong></h2> <span th:text="${rol}">
+	</div>
+	<footer th:replace="plantilla/template :: footer1"></footer>
+</body>
 </html>
