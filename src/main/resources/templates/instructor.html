@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title th:text="#{tool_title}">Instructor View</title>
+<head>
+    <div th:insert="fragments/head :: head"></div>
+    <!--<link th:href="@{/css/style.css}" type="text/css" rel="stylesheet" />-->
+    <!--<link rel="stylesheet" type="text/css" href="http://127.0.0.1:5500/style.css">-->
+</head>
+  <body>
+    Su nombre es: <span th:text="${nombre}"> </span> y su rol es: <span th:text="${rol}"> </span>
+  </body>
+</html>
