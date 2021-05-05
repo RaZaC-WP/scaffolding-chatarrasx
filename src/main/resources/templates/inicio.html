@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="plantilla/template :: head1">
+<head>
+<meta HTTP-EQUIV="REFRESH" CONTENT="5;URL=https://localhost:8443/index">
+<meta charset="UTF-8">
+<title>Inicio</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
 </head>
 <body class="bg-danger">
 	<header>
@@ -16,16 +21,7 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<!-- Enlaces del menu -->
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" th:href="@{/index}">Inicio</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/views/}">Lista de coches</a></li>
-
-					</ul>
-	
-						<div class="text-left text-light"><span th:text="${rol}"></span></div>
-				</div>
+				
 			</div>
 
 		</nav>
@@ -34,13 +30,13 @@
 	<div   class="container text-center">
 		<br><br><br>
 		
-		<h2>Bienvenido/a <span th:text="${nombre}"> </span> </h2>
+		<h2>Iniciando sesi&oacute;n</h2>
 		<br>
 		
 		<img  th:src="@{/images/3.jpg}" class="img-thumbnail " alt="...">
 		<br>
 		<br>
-		<h2>a Cacharros <strong>X</strong></h2>
+		<h2>Por favor espere...</h2>
 	</div>
 	<footer th:replace="plantilla/template :: footer1"></footer>
 </body>

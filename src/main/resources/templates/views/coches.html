@@ -3,7 +3,34 @@
 <head th:replace="plantilla/template :: head1">
 </head>
 <body class="bg-danger">
-	<header th:replace="plantilla/template :: header1"></header>
+	<header>
+
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container">
+
+				<a class="navbar-brand" href="/index"><strong>Cacharros <strong class="text-danger">X</strong></strong></a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<!-- Enlaces del menu -->
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" th:href="@{/index}">Inicio</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/views/}">Lista de coches</a></li>
+
+					</ul>
+	
+						<div class="text-left text-light"><span th:text="${rol}"></span></div>
+				</div>
+			</div>
+
+		</nav>
+
+	</header>
 	<br><br>
 	
 	<div class="container">
@@ -11,7 +38,7 @@
 		
 		<h1 class="text-center text-white" th:text="${titulo}"></h1>
 		<br>
-		 <a th:if="${rol != 'Student'}" class="btn btn-primary btn-lg btn-dark"
+		 <a th:if="${rol != 'Instructor'}" class="btn btn-primary btn-lg btn-dark"
 			th:href="@{/views/crear}" th:text="'Crear nuevo coche'"
 			title="Crear nuevo coche"></a> <br> <br>
 			
@@ -28,7 +55,7 @@
 					<th scope="col">CV</th>
 					<th scope="col">Kil&oacute;metros</th>
 					<th scope="col"></th>
-					<th scope="col"><input th:if="${rol != 'STUDENT'}" class="btn btn-danger btn-sm" type="submit" value="Eliminar"></th>
+					<th scope="col"><input th:if="${rol != 'Instructor'}" class="btn btn-danger btn-sm" type="submit" value="Eliminar"></th>
 					
 
 				</tr>

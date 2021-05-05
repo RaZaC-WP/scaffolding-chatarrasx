@@ -1,7 +1,9 @@
 package com.edf.ltihelloworld.controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,38 +19,49 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import com.edf.ltihelloworld.constants.TemplateConstants;
 import com.edf.ltihelloworld.entity.Coche;
 import com.edf.ltihelloworld.service.EventTrackingService;
 import com.edf.ltihelloworld.service.ICocheService;
 import com.edf.ltihelloworld.service.SecurityService;
 
-
+import edu.ksu.lti.launch.model.LtiLaunchData;
+import edu.ksu.lti.launch.model.LtiSession;
+import edu.ksu.lti.launch.oauth.LtiPrincipal;
 
 @Controller
 @RequestMapping("/views")
 public class CocheController {
 
-    @Autowired
-    private EventTrackingService eventTrackingService;
+	@Autowired
+	private EventTrackingService eventTrackingService;
 
-    @Autowired
-    private SecurityService securityService;
+	@Autowired
+	private SecurityService securityService;
 
-    @Autowired
-    private SessionLocaleResolver localeResolver;
+	@Autowired
+	private SessionLocaleResolver localeResolver;
 
-    @Value("${lti-autoevaluation.url:someurl}")
-    private String canvasBaseUrl;
-
+	@Value("${lti-autoevaluation.url:someurl}")
+	private String canvasBaseUrl;
 
 	@Autowired
 	private ICocheService cocheService;
 
 	@GetMapping("/")
-	public String listarCoches(Model model) {
+	public String listarCoches(@ModelAttribute LtiLaunchData lld, LtiSession ltiSession,
+			Model model, @RequestParam(required = false) Boolean errors, HttpSession httpSession,
+			@RequestParam("page") Optional<Integer> page) {
+
 		List<Coche> listadoCoches = cocheService.listarTodos();
+		String nombre = lld.getLisPersonNameFull();
+		String rol = lld.getRoles();
+
+		model.addAttribute("nombre", nombre);
+		model.addAttribute("rol", rol);
 		model.addAttribute("titulo", "Coches Registrados");
 		model.addAttribute("coches", listadoCoches);
 
