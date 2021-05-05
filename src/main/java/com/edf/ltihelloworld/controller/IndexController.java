@@ -25,8 +25,10 @@ import com.edf.ltihelloworld.service.SecurityService;
 import edu.ksu.lti.launch.model.LtiLaunchData;
 import edu.ksu.lti.launch.model.LtiSession;
 import edu.ksu.lti.launch.oauth.LtiPrincipal;
+import lombok.Data;
 
 @Controller
+
 public class IndexController {
 
 	@Autowired
@@ -89,6 +91,7 @@ public class IndexController {
 		model.addAttribute("nombre", nombre);
 		model.addAttribute("rol", rol);
 
+	
 		return new ModelAndView(TemplateConstants.INSTRUCTOR_TEMPLATE);
 	}
 

@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import com.edf.ltihelloworld.constants.EventConstants;
+import com.edf.ltihelloworld.constants.LtiConstants;
 import com.edf.ltihelloworld.constants.TemplateConstants;
 import com.edf.ltihelloworld.entity.Coche;
 import com.edf.ltihelloworld.service.EventTrackingService;
@@ -52,20 +54,49 @@ public class CocheController {
 	private ICocheService cocheService;
 
 	@GetMapping("/")
-	public String listarCoches(@ModelAttribute LtiLaunchData lld, LtiSession ltiSession,
-			Model model, @RequestParam(required = false) Boolean errors, HttpSession httpSession,
+	public ModelAndView listarCoches(@ModelAttribute LtiPrincipal ltiPrincipal, LtiSession ltiSession, Model model,
+			@RequestParam(required = false) Boolean errors, HttpSession httpSession,
 			@RequestParam("page") Optional<Integer> page) {
 
-		List<Coche> listadoCoches = cocheService.listarTodos();
+		try {
+			LtiLaunchData lld = ltiSession.getLtiLaunchData();
+
+			String canvasLoginId = ltiPrincipal.getUser();
+			String canvasUserId = lld.getCustom().get(LtiConstants.CANVAS_USER_ID);
+			String courseId = ltiSession.getCanvasCourseId();
+
+			eventTrackingService.postEvent(EventConstants.LTI_LOGIN, canvasUserId, courseId);
+
+			if (lld.getRolesList() == null || lld.getRolesList().isEmpty()) {
+				throw new Exception(String.format("The user %s doesn't have any valid role.", canvasLoginId));
+			}
+
+			
+			if (securityService.isFaculty(lld.getRolesList())) {
+				return handleInstructorView(lld, ltiSession, model, page.orElse(1) - 1);
+			}
+
+		} catch (Exception ex) {
+
+		}
+
+		return new ModelAndView(TemplateConstants.ERROR_TEMPLATE);
+	}
+
+	private ModelAndView handleInstructorView(@ModelAttribute LtiLaunchData lld, LtiSession ltiSession, Model model,
+			int page) {
+
 		String nombre = lld.getLisPersonNameFull();
 		String rol = lld.getRoles();
+		List<Coche> listadoCoches = cocheService.listarTodos();
 
-		model.addAttribute("nombre", nombre);
-		model.addAttribute("rol", rol);
 		model.addAttribute("titulo", "Coches Registrados");
 		model.addAttribute("coches", listadoCoches);
 
-		return "views/coches";
+		model.addAttribute("nombre", nombre);
+		model.addAttribute("rol", rol);
+
+		return new ModelAndView(TemplateConstants.COCHE_TEMPLATE);
 	}
 
 	@GetMapping("/crear")

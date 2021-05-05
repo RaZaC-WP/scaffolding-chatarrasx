@@ -69,7 +69,7 @@
 					<td th:text="${c.numPuertas}"></td>
 					<td th:text="${c.cv}"></td>
 					<td th:text="${c.km}"></td>
-					<td><a  th:if="${rol == 'Proffesor'}" class="btn btn-success btn-sm"
+					<td><a  th:if="${rol != 'Instructor'}" class="btn btn-success btn-sm"
 						th:href="@{/views/editar/} + ${c.id}" th:text="'Editar'"
 						title="Editar coche"></a></td>
 
