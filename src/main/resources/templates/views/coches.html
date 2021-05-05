@@ -23,7 +23,7 @@
 			<a th:text="${rol}"></a>
 		</h5>
 		
-		<br> <a th:if="${rol != 'Instructor'}"
+		<br> <a th:if="${rol == 'Instructor'}"
 			class="btn btn-primary btn-lg btn-dark" th:href="@{/crear}"
 			th:text="'Crear nuevo coche'" title="Crear nuevo coche"></a> <br>
 		<br>
@@ -42,7 +42,7 @@
 						<th scope="col">CV</th>
 						<th scope="col">Kil&oacute;metros</th>
 						<th scope="col"></th>
-						<th scope="col"><input th:if="${rol != 'Instructor'}"
+						<th scope="col"><input th:if="${rol == 'Instructor'}"
 							class="btn btn-danger btn-sm" type="submit" value="Eliminar"></th>
 
 
@@ -57,11 +57,11 @@
 						<td th:text="${c.numPuertas}"></td>
 						<td th:text="${c.cv}"></td>
 						<td th:text="${c.km}"></td>
-						<td><a th:if="${rol != 'Instructor'}"
+						<td><a th:if="${rol == 'Instructor'}"
 							class="btn btn-success btn-sm" th:href="@{/editar/} + ${c.id}"
 							th:text="'Editar'" title="Editar coche"></a></td>
 
-						<td><input th:if="${rol != 'Instructor'}" type="checkbox" th:name="id" th:value="${c.id}"></td>
+						<td><input th:if="${rol == 'Instructor'}" type="checkbox" th:name="id" th:value="${c.id}"></td>
 
 
 

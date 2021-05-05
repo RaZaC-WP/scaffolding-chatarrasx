@@ -70,8 +70,10 @@ public class CocheController {
 			if (lld.getRolesList() == null || lld.getRolesList().isEmpty()) {
 				throw new Exception(String.format("The user %s doesn't have any valid role.", canvasLoginId));
 			}
+			if (securityService.isStudent(lld.getRolesList())) {
+				return handleStudentView(lld, ltiSession, model);
+			}
 
-			
 			if (securityService.isFaculty(lld.getRolesList())) {
 				return handleInstructorView(lld, ltiSession, model, page.orElse(1) - 1);
 			}
@@ -95,6 +97,21 @@ public class CocheController {
 
 		model.addAttribute("nombre", nombre);
 		model.addAttribute("rol", rol);
+
+		return new ModelAndView(TemplateConstants.COCHE_TEMPLATE);
+	}
+
+	private ModelAndView handleStudentView(@ModelAttribute LtiLaunchData lld, LtiSession ltiSession, Model model) {
+
+		String nombre = lld.getLisPersonNameFull();
+
+		List<Coche> listadoCoches = cocheService.listarTodos();
+
+		model.addAttribute("titulo", "Coches Registrados");
+		model.addAttribute("coches", listadoCoches);
+		
+		model.addAttribute("nombre", nombre);
+		model.addAttribute("rol", "Alumno");
 
 		return new ModelAndView(TemplateConstants.COCHE_TEMPLATE);
 	}
