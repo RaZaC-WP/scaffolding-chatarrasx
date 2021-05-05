@@ -2,90 +2,77 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="plantilla/template :: head1">
 </head>
-<body class="bg-danger">
-	<header>
+<body>
 
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<div class="container">
+	<br>
+	<br>
 
-				<a class="navbar-brand" href="/index"><strong>Cacharros <strong class="text-danger">X</strong></strong></a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<!-- Enlaces del menu -->
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" th:href="@{/index}">Inicio</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/views/}">Lista de coches</a></li>
-
-					</ul>
-	
-						<div class="text-left text-light"><span th:text="${rol}"></span></div>
-				</div>
-			</div>
-
-		</nav>
-
-	</header>
-	<br><br>
-	
 	<div class="container">
-	
-		
-		<h1 class="text-center text-white" th:text="${titulo}"></h1>
-		<br>
-		 <a th:if="${rol != 'Instructor'}" class="btn btn-primary btn-lg btn-dark"
-			th:href="@{/views/crear}" th:text="'Crear nuevo coche'"
-			title="Crear nuevo coche"></a> <br> <br>
+
+
+		<h1 class="text-center" th:text="${titulo}"></h1>
+		<h4>
+			<a>Usuario: </a>
 			
+			<a th:text="${nombre}"></a>
+		</h4>
 		
-<form th:action="@{/views/borrar}" th:object="${coche}" method="POST">
-		<table class="table table-dark table-striped table-hover text-center">
-			<thead>
-				<tr>
-					
-					<th scope="col">Marca</th>
-					<th scope="col">Modelo</th>
-					<th scope="col">Precio</th>
-					<th scope="col">Puertas</th>
-					<th scope="col">CV</th>
-					<th scope="col">Kil&oacute;metros</th>
-					<th scope="col"></th>
-					<th scope="col"><input th:if="${rol != 'Instructor'}" class="btn btn-danger btn-sm" type="submit" value="Eliminar"></th>
-					
-
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="c: ${coches}">
-					
-					<th scope="row" th:text="${c.marca}"></th>
-					<td th:text="${c.modelo}"></td>
-					<td th:text="${c.precio}"></td>
-					<td th:text="${c.numPuertas}"></td>
-					<td th:text="${c.cv}"></td>
-					<td th:text="${c.km}"></td>
-					<td><a  th:if="${rol != 'Instructor'}" class="btn btn-success btn-sm"
-						th:href="@{/views/editar/} + ${c.id}" th:text="'Editar'"
-						title="Editar coche"></a></td>
-
-					<td><input type="checkbox" th:name="id"  th:value="${c.id}"></td>
-
-					
-
-				</tr>
-
-
-			</tbody>
-		</table>
+		<h5>
+			<a>Rol: </a>
+			
+			<a th:text="${rol}"></a>
+		</h5>
 		
+		<br> <a th:if="${rol != 'Instructor'}"
+			class="btn btn-primary btn-lg btn-dark" th:href="@{/crear}"
+			th:text="'Crear nuevo coche'" title="Crear nuevo coche"></a> <br>
+		<br>
+
+
+
+		<form th:action="@{/borrar}" th:object="${coche}" method="POST">
+			<table class="table table-dark table-striped table-hover text-center">
+				<thead>
+					<tr>
+
+						<th scope="col">Marca</th>
+						<th scope="col">Modelo</th>
+						<th scope="col">Precio</th>
+						<th scope="col">Puertas</th>
+						<th scope="col">CV</th>
+						<th scope="col">Kil&oacute;metros</th>
+						<th scope="col"></th>
+						<th scope="col"><input th:if="${rol != 'Instructor'}"
+							class="btn btn-danger btn-sm" type="submit" value="Eliminar"></th>
+
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="c: ${coches}">
+
+						<th scope="row" th:text="${c.marca}"></th>
+						<td th:text="${c.modelo}"></td>
+						<td th:text="${c.precio}"></td>
+						<td th:text="${c.numPuertas}"></td>
+						<td th:text="${c.cv}"></td>
+						<td th:text="${c.km}"></td>
+						<td><a th:if="${rol != 'Instructor'}"
+							class="btn btn-success btn-sm" th:href="@{/editar/} + ${c.id}"
+							th:text="'Editar'" title="Editar coche"></a></td>
+
+						<td><input th:if="${rol != 'Instructor'}" type="checkbox" th:name="id" th:value="${c.id}"></td>
+
+
+
+					</tr>
+
+
+				</tbody>
+			</table>
+
 		</form>
 	</div>
-	<br><br>
-	<footer th:replace="plantilla/template :: footer1"></footer>
+
 </body>
 </html>

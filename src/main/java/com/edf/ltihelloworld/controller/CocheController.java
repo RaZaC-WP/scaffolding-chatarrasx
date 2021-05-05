@@ -35,7 +35,7 @@ import edu.ksu.lti.launch.model.LtiSession;
 import edu.ksu.lti.launch.oauth.LtiPrincipal;
 
 @Controller
-@RequestMapping("/views")
+
 public class CocheController {
 
 	@Autowired
@@ -121,7 +121,7 @@ public class CocheController {
 
 		cocheService.guardar(miCoche);
 		System.out.println("Coche añadido!");
-		return "redirect:/views/";
+		return "redirect:/";
 	}
 
 	@GetMapping("/editar/{id}")
@@ -157,7 +157,7 @@ public class CocheController {
 			}
 		}
 
-		return "redirect:/views/";
+		return "redirect:/";
 	}
 
 }

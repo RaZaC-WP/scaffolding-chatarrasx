@@ -1,4 +1,4 @@
-package com.edf.ltihelloworld.controller;
+/** package com.edf.ltihelloworld.controller;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -105,4 +105,4 @@ public class IndexController {
 		return new ModelAndView(TemplateConstants.STUDENT_TEMPLATE);
 	}
 
-}
+}**/
